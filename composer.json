@@ -1,0 +1,10 @@
+{
+    "name": "vinvit/mvc",
+    "description": "My first MVC",
+    "autoload": {
+        "psr-4": {
+            "Vinvit\\Mvc\\": "web/src/"
+        }
+    },
+    "require": {}
+}
