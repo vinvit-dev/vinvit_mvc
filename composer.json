@@ -6,5 +6,7 @@
             "Vinvit\\Mvc\\": "web/src/"
         }
     },
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
 }
