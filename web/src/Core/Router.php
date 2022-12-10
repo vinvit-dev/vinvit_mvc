@@ -2,101 +2,74 @@
 
 namespace VinvitMVC\Core;
 
+use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
+use Pecee\SimpleRouter\SimpleRouter;
+use VinvitMVC\Core\Attributes\Route;
+
 class Router {
-    private array $routes = [];
 
     /**
-     * Register new route.
-     *
-     * @param $method
-     *  Route method GET|POST|PUT|DELETE.
-     * @param $route
-     *  Route url.
-     * @param $action
-     *  Route action method, class.
-     * @return $this
+     * @param array $controllers
+     * @return void
+     * @throws \ReflectionException
      */
-    public function register(string $method, string $route, $action) {
-        $this->routes[strtoupper($method)][$route] = $action;
+    public function registerController(array $controllers) {
+        foreach ($controllers as $controller) {
+            $reflectionController = new \ReflectionClass($controller);
+            foreach ($reflectionController->getMethods() as $method) {
+               $attributes = $method->getAttributes(Route::class);
+               foreach ($attributes as $attribute) {
+                   /** @var Route $route */
+                   $route = $attribute->newInstance();
 
-        return $this;
+                   $this->register($route->method, $route->routePath, [$controller, $method->getName()], $route->settings);
+               }
+            }
+        }
+    }
+    /**
+     * Register new route.
+     */
+    public function register(string $method, string $route, $action, $settings) {
+        SimpleRouter::match((array) $method, $route, $action, $settings);
     }
 
     /**
      * Register get route.
-     *
-     * @param $route
-     *  Route url.
-     * @param $action
-     *  Route action method, class.
-     * @return $this
      */
-    public function get(string $route, string $action)
-    {
-        return $this->register('get', $route, $action);
+    public function get(string $route, $action, $settings = null) {
+        SimpleRouter::get($route, $action, $settings);
     }
 
     /**
      * Register post route.
-     *
-     * @param $route
-     *  Route url.
-     * @param $action
-     *  Route action method, class.
-     * @return $this
      */
-    public function post(string $route, string $action) {
-        return $this->register('post', $route, $action);
+    public function post(string $route, $action, $settings = null) {
+        SimpleRouter::post($route, $action, $settings);
     }
 
     /**
      * Register put route.
-     *
-     * @param $route
-     *  Route url.
-     * @param $action
-     *  Route action method, class.
-     * @return $this
      */
-    public function put(string $route, string $action) {
-        return $this->register('put', $route, $action);
+    public function put(string $route, $action, $settings = null) {
+        SimpleRouter::put($route, $action. $settings);
     }
 
     /**
      * Register delete route.
-     *
-     * @param $route
-     *  Route url.
-     * @param $action
-     *  Route action method, class.
-     * @return $this
      */
-    public function delete(string $route, string $action) {
-        return $this->register('delete', $route, $action);
+    public function delete(string $route, $action, $settings = null) {
+        SimpleRouter::delete($route, $action, $settings);
     }
 
     /**
      *  Resolve route.
-     *
-     * @param string $requestUri
-     *  Request uri.
-     * @param string $requestMethod
-     *  Request method GET|POST|PUT|DELETE.
-     * @return mixed|string
      */
-    public function resolve(string $requestUri, string $requestMethod) {
-        $route = explode('?', $requestUri)[0];
-
-        if(!isset($this->routes[$requestMethod][$route])) {
-            return "Route " . var_export($route, true) . " not found!";
+    public function start() {
+        try {
+            SimpleRouter::start();
+        } catch (NotFoundHttpException $e) {
+            return $e->getMessage();
         }
-
-        $action = $this->routes[$requestMethod][$route];
-
-        if(is_callable($action)) {
-            return call_user_func($action);
-        }
-
-        return "Not found Action: " . var_export($action, true);
     }
 }
