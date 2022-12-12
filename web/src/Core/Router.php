@@ -2,6 +2,8 @@
 
 namespace VinvitMVC\Core;
 
+use Pecee\Http\Middleware\Exceptions\TokenMismatchException;
+use Pecee\SimpleRouter\Exceptions\HttpException;
 use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
 use Pecee\SimpleRouter\SimpleRouter;
 use VinvitMVC\Core\Attributes\Route;
@@ -30,36 +32,36 @@ class Router {
     /**
      * Register new route.
      */
-    public function register(string $method, string $route, $action, $settings) {
-        SimpleRouter::match((array) $method, $route, $action, $settings);
+    public function register(string $method, string $route, $action, $settings = null) {
+        SimpleRouter::match((array) $method, $route, $action)->where($settings);
     }
 
     /**
      * Register get route.
      */
     public function get(string $route, $action, $settings = null) {
-        SimpleRouter::get($route, $action, $settings);
+        SimpleRouter::get($route, $action)->where($settings);
     }
 
     /**
      * Register post route.
      */
     public function post(string $route, $action, $settings = null) {
-        SimpleRouter::post($route, $action, $settings);
+        SimpleRouter::post($route, $action)->where($settings);
     }
 
     /**
      * Register put route.
      */
     public function put(string $route, $action, $settings = null) {
-        SimpleRouter::put($route, $action. $settings);
+        SimpleRouter::put($route, $action)->where($settings);
     }
 
     /**
      * Register delete route.
      */
     public function delete(string $route, $action, $settings = null) {
-        SimpleRouter::delete($route, $action, $settings);
+        SimpleRouter::delete($route, $action)->where($settings);
     }
 
     /**
@@ -68,7 +70,7 @@ class Router {
     public function start() {
         try {
             SimpleRouter::start();
-        } catch (NotFoundHttpException $e) {
+        } catch (NotFoundHttpException|TokenMismatchException|HttpException|\Exception $e) {
             return $e->getMessage();
         }
     }

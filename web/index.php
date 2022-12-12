@@ -11,4 +11,4 @@ $router->registerController([
     \VinvitMVC\Controllers\HomeController::class
 ]);
 
-$router->start();
+echo $router->start();

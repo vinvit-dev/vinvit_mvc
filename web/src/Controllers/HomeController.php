@@ -13,7 +13,7 @@ class HomeController implements ControllerInterface {
         return "hello world";
     }
 
-    #[Route('get', '/{id}')]
+    #[Route('get', '/{id}', ['id' => '[0-9]'])]
     public function number(int $id)
     {
         return "Number: " . $id;
