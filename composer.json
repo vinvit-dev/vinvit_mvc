@@ -2,6 +2,9 @@
     "name": "vinvit/mvc",
     "description": "My first MVC",
     "autoload": {
+        "classmap": [
+            "web/src/Controllers"
+        ],
         "psr-4": {
             "VinvitMVC\\": "web/src/"
         }

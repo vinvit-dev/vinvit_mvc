@@ -15,7 +15,7 @@ class Router {
      * @return void
      * @throws \ReflectionException
      */
-    public function registerController(array $controllers) {
+    public function registerControllers(array $controllers) {
         foreach ($controllers as $controller) {
             $reflectionController = new \ReflectionClass($controller);
             foreach ($reflectionController->getMethods() as $method) {
