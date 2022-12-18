@@ -1,9 +1,9 @@
 <?php
 
-namespace VinvitMVC\Core;
+namespace Vinvit\MVC\Core;
 
 use Composer\Autoload\ClassLoader;
-use VinvitMVC\Core\Controller\ControllerInterface;
+use Vinvit\MVC\Core\Controller\Controller;
 
 class App {
     private $router;
@@ -17,7 +17,7 @@ class App {
     }
 
     public function registerContollers() {
-        $this->router->registerControllers(Loader::loadClassesImplementInterface($this->autoloader, ControllerInterface::class));
+        $this->router->registerControllers(AutoLoader::loadClassesImplementInterface($this->autoloader, Controller::class));
     }
 
     public function run() {

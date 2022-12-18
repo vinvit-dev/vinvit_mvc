@@ -1,6 +1,6 @@
 <?php
 
-namespace VinvitMVC\Core\Attributes;
+namespace Vinvit\MVC\Core\Attributes;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
 class Route

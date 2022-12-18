@@ -1,11 +1,11 @@
 <?php
 
-namespace VinvitMVC\Core;
+namespace Vinvit\MVC\Core;
 
 use Composer\Autoload\ClassLoader;
 use ReflectionClass;
 
-class Loader {
+class AutoLoader {
     public static function loadClassesImplementInterface(ClassLoader $autoloader, $interface) {
         $classes = $autoloader->getClassMap();
         $list = [];

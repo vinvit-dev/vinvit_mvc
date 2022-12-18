@@ -1,12 +1,12 @@
 <?php
 
-namespace VinvitMVC\Core;
+namespace Vinvit\MVC\Core;
 
 use Pecee\Http\Middleware\Exceptions\TokenMismatchException;
 use Pecee\SimpleRouter\Exceptions\HttpException;
 use Pecee\SimpleRouter\Exceptions\NotFoundHttpException;
 use Pecee\SimpleRouter\SimpleRouter;
-use VinvitMVC\Core\Attributes\Route;
+use Vinvit\MVC\Core\Attributes\Route;
 
 class Router {
 

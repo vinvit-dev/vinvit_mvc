@@ -1,11 +1,11 @@
 <?php
 
-namespace VinvitMVC\Controllers;
+namespace Vinvit\MVC\Controllers;
 
-use VinvitMVC\Core\Controller\ControllerInterface;
-use VinvitMVC\Core\Attributes\Route;
+use Vinvit\MVC\Core\Controller\Controller;
+use Vinvit\MVC\Core\Attributes\Route;
 
-class HomeController implements ControllerInterface {
+class HomeController implements Controller {
 
     #[Route('get', '/')]
     public function index()

@@ -6,7 +6,7 @@
             "web/src/Controllers"
         ],
         "psr-4": {
-            "VinvitMVC\\": "web/src/"
+            "Vinvit\\MVC\\": "web/src/"
         }
     },
     "require": {
