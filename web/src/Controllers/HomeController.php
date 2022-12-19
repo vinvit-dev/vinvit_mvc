@@ -2,23 +2,21 @@
 
 namespace Vinvit\MVC\Controllers;
 
-use Vinvit\MVC\Core\Controller\Controller;
 use Vinvit\MVC\Core\Attributes\Route;
-use Vinvit\MVC\Core\Controller\Response\TwigResponse;
+use Vinvit\MVC\Core\Controller\ControllerBase;
+use Vinvit\MVC\Core\Response\TwigResponse;
 
-class HomeController implements Controller {
+class HomeController extends ControllerBase {
 
     #[Route('get', '/')]
-    public function index()
+    public function index(): string
     {
-        $response = new TwigResponse('home');
-        return $response->getResponse();
+        return $this->render('home');
     }
 
     #[Route('get', '/{id}',["id" => "[0-9]+"])]
-    public function number(int $id = 0)
+    public function number(int $id = 0): string
     {
-        $response = new TwigResponse('home', ['num' => $id]);
-        return $response->getResponse();
+        return $this->render('home', ['num' => $id]);
     }
 }

@@ -1,5 +1,13 @@
-<h1>Homepage</h1>
+{% extends 'base.html.twig' %}
 
-{% if num %}
-    <h3>Number: {{ num }}</h3>
-{% endif %}
+{% block title %}
+    <title>Homepage: {{ num }}</title>
+{% endblock %}
+
+{% block content %}
+    <h1>Homepage</h1>
+
+    {% if num %}
+        <h3>Number: {{ num }}</h3>
+    {% endif %}
+{% endblock %}
